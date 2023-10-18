@@ -14,7 +14,7 @@
 #define DEFAULT_IPV4 "127.0.0.1"
 #define DEFAULT_PORT "27015"
 
-int __cdecl main(int argc, char **argv) {
+int main() {
 	WSADATA wsaData;
 	SOCKET ConnectSocket = INVALID_SOCKET;
 	struct addrinfo* result = NULL, * ptr = NULL, hints;
@@ -23,10 +23,10 @@ int __cdecl main(int argc, char **argv) {
 	int iResult;
 	int recvbuflen = DEFAULT_BUFLEN;
 
-	if (argc != 2) {
-		printf("usage: %s server-name\n, args[0]");
-		return 1;
-	}
+	//if (argc != 2) {
+	//	printf("usage: %s server-name\n, args[0]");
+	//	return 1;
+	//}
 
 	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
 	if (iResult != 0) {
@@ -40,7 +40,7 @@ int __cdecl main(int argc, char **argv) {
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
 
-	iResult = getaddrinfo(argv[1], DEFAULT_PORT, &hints, &result);
+	iResult = getaddrinfo(DEFAULT_IPV4, DEFAULT_PORT, &hints, &result);
 	if (iResult != 0) {
 		printf("getaddrinfo failed: %d\n", iResult);
 		WSACleanup();
